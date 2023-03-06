@@ -1,3 +1,30 @@
+/*Implement Below Interfaces. Write 2 implementation for Download from Url(ex. https://filesamples.com/samples/video/mp4/sample_1280x720_surfing_with_audio.mp4, 
+https://filesamples.com/samples/video/mp4/sample_960x400_ocean_with_audio.mp4) 
+and file system. also write zip implementation of Archiver. 
+Note: you need to close 1.Response Body in case of web Downloader, 2. File in case of File System, 3.Zip in case of Archiver. (Hint: io.Pipe)
+
+
+	// Downloader downloads from any url or file path.
+	type Downloader interface {
+		Download(uri string) (r io.Reader, err error)
+	}
+
+	type Archiver interface {
+		Archive(names []string, readers ...io.Reader) (outR io.Reader, err error)
+	}
+
+	// main.go should look like
+	downloader := web.NewDownloader()
+	zipper := zip.New()
+
+	r1, err := downloader.Downloader("url1")
+	r2, err := downloader.Downloader("url1")
+	zipR, err := zipper.Archive([]string{"f1.mp4","f2.mp4"}, r1, r2)
+
+	zipW , err := os.Open("result.zip")
+	_,err = io.Copy(zipW, zipR). */
+ 
+
 package main
 
 import (
