@@ -1,4 +1,16 @@
-package main
+
+/*Develop a microservice for keeping the count of views on a video platform (YouTube). It should have 2 APIs -
+API 1: for a given alphanumeric videoId (e.g. 0ReKdcpNyQg) increment the view count
+API 2: for a give videoId return number of views 
+
+You can store data in memory. 
+
+- Run your code with -race flag and call both apis multiple times without facing any error
+- Implement unit tests*/
+ 
+ 
+ 		
+
 
 import (
 	"fmt"
