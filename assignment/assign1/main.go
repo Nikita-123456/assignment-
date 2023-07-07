@@ -77,7 +77,7 @@ func main() {
 
 	//adding few print statements
 	fmt.Println("hello world")
-	fmt.Println("hello world")
+	fmt.Println("hello world3")
 	fmt.Println("Views on video2 - ", <-c2)
 
 	vid.Wg.Wait()
