@@ -1,16 +1,13 @@
-
 /*Develop a microservice for keeping the count of views on a video platform (YouTube). It should have 2 APIs -
 API 1: for a given alphanumeric videoId (e.g. 0ReKdcpNyQg) increment the view count
-API 2: for a give videoId return number of views 
+API 2: for a give videoId return number of views
 
-You can store data in memory. 
+You can store data in memory.
 
 - Run your code with -race flag and call both apis multiple times without facing any error
 - Implement unit tests*/
- 
- 
- 		
 
+package main
 
 import (
 	"fmt"
@@ -77,6 +74,9 @@ func main() {
 	go vid2.GetViews(id2, c2)
 
 	fmt.Println("Views on video1 - ", <-c)
+
+	//adding few print statements
+	fmt.Println("hello world")
 	fmt.Println("Views on video2 - ", <-c2)
 
 	vid.Wg.Wait()
