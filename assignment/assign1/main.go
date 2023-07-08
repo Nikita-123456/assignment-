@@ -77,7 +77,7 @@ func main() {
 
 	//adding few print statements
 	fmt.Println("hello world")
-	fmt.Println("hello world")
+	fmt.Println("hello world23456")
 
 	fmt.Println("Views on video2 - ", <-c2)
 
