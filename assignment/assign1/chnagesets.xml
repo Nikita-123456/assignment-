@@ -86,4 +86,12 @@
 			ALTER TABLE [Users] ALTER COLUMN [friendReferral] [int] NOT NULL;
 			ALTER TABLE [Users] ADD CONSTRAINT DF_FRIENDREFERRAL_DEFAULT DEFAULT '0' for [friendReferral]
 
+			UPDATE [Users] SET [fbvshgcvbsgdhndfcbvhdbc] = '0' WHERE [friendReferral] IS NULL;
+
+
+
+
+
+ f
+
 	
