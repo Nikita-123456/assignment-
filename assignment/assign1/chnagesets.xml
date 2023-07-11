@@ -1,0 +1,92 @@
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+   <changeSet id="jwr-db-views-drop-all" author="ShashankSingh" context="local">
+	<comment>Dropping all existing views</comment>
+	<sqlFile path="drop-views.sql" relativeToChangelogFile="true" endDelimiter="\nGO"/>
+   </changeSet>
+    <changeSet id="jwr-db-usersmerge-uci-1" author="Mirek" context="local">
+    	<comment>Adding columns/data and dropping from UserContactInformation/properties/UserLastAccountLockReasonTable to Users</comment>
+    	<sql>
+			ALTER TABLE [dbo].[Users] ADD
+				[FirstName] [varchar](50) NULL,
+				[LastName] [varchar](50) NULL,
+				[DateOfBirth] [date] NULL,
+				[Address] [varchar](50) NULL,
+				[Address2] [varchar](50) NULL,
+				[City] [varchar](50) NULL,
+				[PIN] [varchar](10) NULL,
+				[ContactDetailsUpdatedTime] [datetime] NULL;
+
+			
+			UPDATE [dbo].[Users]
+			SET   [dbo].[Users].[mobileNumber] = [dbo].[UserContactInformation].[Mobile]
+			FROM  [dbo].[Users]
+				INNER JOIN [dbo].[UserContactInformation]
+				ON    [dbo].[Users].[userID] = [dbo].[UserContactInformation].[userID]
+			WHERE [dbo].[Users].[mobileNumber] IS NULL;
+
+			DROP TABLE [dbo].[UserContactInformation];
+
+			
+			
+			UPDATE [dbo].[Users]
+			 SET
+				[dbo].[Users].[isFraud] = [dbo].[UserProperties].[isFraud],
+				[dbo].[Users].[userPanPortraitPath] = [dbo].[UserProperties].[userPanPortraitPath],
+				[dbo].[Users].[userStatus] = [dbo].[UserProperties].[userStatus],
+				[dbo].[Users].[panCardNumber] = [dbo].[UserProperties].[panCardNumber],
+				[dbo].[Users].[uploadCount] = [dbo].[UserProperties].[uploadCount],
+				[dbo].[Users].[rejectionReason] = [dbo].[UserProperties].[reason],
+				[dbo].[Users].[fraudStatus] = [dbo].[UserProperties].[fraudStatus],
+				[dbo].[Users].[fraudPronity] = [dbo].[UserProperties].[fraudPronity],
+				[dbo].[Users].[fraudType] = [dbo].[UserProperties].[fraudType],
+				[dbo].[Users].[AddressProofType] = [dbo].[UserProperties].[AddressProofType],
+				[dbo].[Users].[AddressProofText] = [dbo].[UserProperties].[AddressProofText],
+				[dbo].[Users].[AddressProofImagepath] = [dbo].[UserProperties].[AddressProofImagepath],
+				[dbo].[Users].[AddressProofStatus] = [dbo].[UserProperties].[AddressProofStatus],
+				[dbo].[Users].[AddressProofUploadCount] = [dbo].[UserProperties].[AddressProofUploadCount],
+				[dbo].[Users].[AddressProofReason] = [dbo].[UserProperties].[AddressProofReason],
+				[dbo].[Users].[timestampAddressUpdate] = [dbo].[UserProperties].[timestampAddressUpdate],
+				[dbo].[Users].[Source] = [dbo].[UserProperties].[Source],
+				[dbo].[Users].[PaymentTOSAccepted] = [dbo].[UserProperties].[PaymentTOSAccepted],
+				[dbo].[Users].[IdProofType] = [dbo].[UserProperties].[IdProofType],
+				[dbo].[Users].[IdProofText] = [dbo].[UserProperties].[IdProofText],
+				[dbo].[Users].[IdProofImagePath] = [dbo].[UserProperties].[IdProofImagePath],
+				[dbo].[Users].[IdProofStatus] = [dbo].[UserProperties].[IdProofStatus],
+				[dbo].[Users].[IdProofReason] = [dbo].[UserProperties].[IdProofReason],
+				[dbo].[Users].[timestampIdUpdate] = [dbo].[UserProperties].[timestampIdUpdate],
+				[dbo].[Users].[timestampPanUpdate] = [dbo].[UserProperties].[timestampPanUpdate],
+				[dbo].[Users].[hasSavedCard] = [dbo].[UserProperties].[hasSavedCard],
+				[dbo].[Users].[timestampIdApproval] = [dbo].[UserProperties].[timestampIdApproval],
+				[dbo].[Users].[timestampPanApproval] = [dbo].[UserProperties].[timestampPanApproval],
+				[dbo].[Users].[timestampAddressApproval] = [dbo].[UserProperties].[timestampAddressApproval]
+			 FROM [dbo].[Users] INNER JOIN [dbo].[UserProperties]
+			 ON [dbo].[Users].[userID] = [dbo].[UserProperties].[userID];
+
+			 DROP TABLE [dbo].[UserProperties];
+
+			 ALTER TABLE [dbo].[Users] ADD
+				[lastLockReason] [text] NULL;
+
+			EXEC DropColumnFromTable 'Users', 'hasSavedCard';
+			EXEC DropColumnFromTable 'Users', 'totalCashGamesPlayed';
+			EXEC DropColumnFromTable 'Users', 'totalFreeGamesPlayed';
+			EXEC DropColumnFromTable 'Users', 'vip';
+			EXEC DropColumnFromTable 'Users', 'birthYear';
+			EXEC DropColumnFromTable 'Users', 'gender';
+			EXEC DropColumnFromTable 'Users', 'PaymentTOSAccepted';
+			EXEC DropColumnFromTable 'Users', 'isFirstLogin';
+			EXEC DropColumnFromTable 'Users', 'activeDays';
+
+			UPDATE [Users] SET [friendReferral] = '0' WHERE [friendReferral] IS NULL;
+			ALTER TABLE [Users] ALTER COLUMN [friendReferral] [int] NOT NULL;
+			ALTER TABLE [Users] ADD CONSTRAINT DF_FRIENDREFERRAL_DEFAULT DEFAULT '0' for [friendReferral]
+
+
+			jdnbchwesmx zujhshdjcjdnxjhkasxjz XCHJ
+
+	
