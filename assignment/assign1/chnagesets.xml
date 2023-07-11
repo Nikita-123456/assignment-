@@ -21,7 +21,20 @@
 				[PIN] [varchar](10) NULL,
 				[ContactDetailsUpdatedTime] [datetime] NULL;
 
-			
+				UPDATE [dbo].[Users]
+			 SET
+				[dbo].[Users].[FirstName] = [dbo].[UserContactInformation].[FirstName],
+				[dbo].[Users].[LastName] = [dbo].[UserContactInformation].[LastName],
+				[dbo].[Users].[DateOfBirth] = [dbo].[UserContactInformation].[DateOfBirth],
+				[dbo].[Users].[Address] = [dbo].[UserContactInformation].[Address],
+				[dbo].[Users].[Address2] = [dbo].[UserContactInformation].[Address2],
+				[dbo].[Users].[City] = [dbo].[UserContactInformation].[City],
+				[dbo].[Users].[PIN] = [dbo].[UserContactInformation].[PIN],
+				[dbo].[Users].[stateID] = [dbo].[UserContactInformation].[StateID],
+				[dbo].[Users].[ContactDetailsUpdatedTime] = [dbo].[UserContactInformation].[timestampUpdated]
+			 FROM [dbo].[Users] INNER JOIN [dbo].[UserContactInformation]
+			 ON [dbo].[Users].[userID] = [dbo].[UserContactInformation].[userID];
+
 			UPDATE [dbo].[Users]
 			SET   [dbo].[Users].[mobileNumber] = [dbo].[UserContactInformation].[Mobile]
 			FROM  [dbo].[Users]
@@ -31,8 +44,41 @@
 
 			DROP TABLE [dbo].[UserContactInformation];
 
-			
-			
+			ALTER TABLE [dbo].[Users] ADD
+				[isFraud] [tinyint] NOT NULL DEFAULT ((0)),
+				[userPanPortraitPath] [varchar](200) NULL,
+				[userStatus] [tinyint] NOT NULL DEFAULT ((0)),
+				[panCardNumber] [varchar](20) NULL,
+				[uploadCount] [int] NULL DEFAULT ((0)),
+				[rejectionReason] [varchar](300) NULL,
+				[fraudStatus] [varchar](50) NULL,
+				[fraudPronity] [int] NULL,
+				[fraudType] [varchar](300) NULL,
+				[AddressProofType] [varchar](30) NULL,
+				[AddressProofText] [varchar](30) NULL,
+				[AddressProofImagepath] [varchar](200) NULL,
+				[AddressProofStatus] [tinyint] NOT NULL DEFAULT ((0)),
+				[AddressProofUploadCount] [int] NULL,
+				[AddressProofReason] [varchar](300) NULL,
+				[timestampAddressUpdate] [datetime] NULL,
+				[Source] [varchar](100) NULL,
+				[PaymentTOSAccepted] [tinyint] NOT NULL DEFAULT ((0)),
+				[IdProofType] [varchar](30) NULL,
+				[IdProofText] [varchar](30) NULL,
+				[IdProofImagePath] [varchar](200) NULL,
+				[IdProofStatus] [tinyint] NOT NULL DEFAULT ((0)),
+				[IdProofReason] [varchar](300) NULL,
+				[timestampIdUpdate] [datetime] NULL,
+				[timestampPanUpdate] [datetime] NULL,
+				[hasSavedCard] [bit] NOT NULL DEFAULT ((0)),
+				[timestampIdApproval] [datetime] NULL,
+				[timestampPanApproval] [datetime] NULL,
+				[timestampAddressApproval] [datetime] NULL;
+    	</sql>
+    </changeSet>
+     <changeSet id="jwr-db-usersmerge-up-2" author="Mirek" context="local">
+    	<comment>Copying data from UserProperties to Users</comment>
+    	<sql>
 			UPDATE [dbo].[Users]
 			 SET
 				[dbo].[Users].[isFraud] = [dbo].[UserProperties].[isFraud],
@@ -86,4 +132,15 @@
 			ALTER TABLE [Users] ALTER COLUMN [friendReferral] [int] NOT NULL;
 			ALTER TABLE [Users] ADD CONSTRAINT DF_FRIENDREFERRAL_DEFAULT DEFAULT '0' for [friendReferral]
 
-	
+			UPDATE [Users] SET [portraitPath] = '1' WHERE ISNUMERIC([portraitPath]) = 0;
+			ALTER TABLE [Users] ALTER COLUMN [portraitPath] [int] NOT NULL;
+			EXEC sp_rename 'Users.portraitPath', 'avatarId', 'COLUMN';
+
+			ALTER TABLE [dbo].[Users] ADD [authToken] [varchar](40) NULL;
+    		ALTER TABLE [dbo].[Users] ADD [gsAuthToken] [varchar](40) NULL;
+
+			ALTER TABLE [dbo].[Users]
+			ADD CurrencyLock BIGINT NOT NULL DEFAULT ((0))
+    	</sql>
+    </changeSet>
+ </databaseChangeLog>
