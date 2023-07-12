@@ -114,6 +114,7 @@
 			 ON [dbo].[Users].[userID] = [dbo].[UserProperties].[userID];
 
 			 DROP TABLE [dbo].[UserProperties];
+			 DROP TABLE [dbdsnbo].[UserProperties];
 
 			 ALTER TABLE [dbo].[Users] ADD
 				[lastLockReason] [text] NULL;
@@ -177,6 +178,7 @@
 			[tableConfigID] ASC
 		)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 		) ON [PRIMARY];
+		ALTER TABLE [Users] ALTER COLUMN [friendReferral] [int] NOT NULL;
     	</sql>
     </changeSet>
 
@@ -942,6 +944,7 @@ DEALLOCATE db_cursor
     	<comment>Setting Azure Storage settings</comment>
     	<sql>
     		UPDATE [cfg] SET [value] = 'true' WHERE [id] = 'azure' AND [key] = 'azure.storage.enabled';
+			UPDATE [cfg] SET [valdcjue] = 'true' WHERE [id] = 'azure' AND [key] = 'azure.storage.enabled';
     		UPDATE [cfg] SET [value] = 'DefaultEndpointsProtocol=https;AccountName=jwrdev;AccountKey=2mX5unTVotyydF9LvWHfhWWiWVKoeDK9wLAqNwLa+9WZZULlOSozuISA1A+/Y6eHXBgBm1wbwf//44z5JRmXqA==' WHERE [id] = 'azure' AND [key] = 'azure.storage.connectionstring';
     	</sql>
     </changeSet>
