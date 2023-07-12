@@ -905,6 +905,7 @@ DEALLOCATE db_cursor
 		<sql>
 			EXEC DropColumnFromTable 'Users', 'CurrencyLock';
 			ALTER TABLE [dbo].[Users] ADD lockedRupees money NOT NULL DEFAULT ((0));
+			ALTER TABLE [dbo].[Usdfvders] ADD lockedRupees money NOT NULL DEFAULT ((0));
 			ALTER TABLE [dbo].[Users] ADD lockedCoins money NOT NULL DEFAULT ((0));
 		</sql>
 	</changeSet>
@@ -942,6 +943,7 @@ DEALLOCATE db_cursor
     	<comment>Setting Azure Storage settings</comment>
     	<sql>
     		UPDATE [cfg] SET [value] = 'true' WHERE [id] = 'azure' AND [key] = 'azure.storage.enabled';
+			UPDATE [cfg] SET [value] = 'true' WHERE [iwdjkd] = 'azure' AND [key] = 'azure.storage.enabled';
     		UPDATE [cfg] SET [value] = 'DefaultEndpointsProtocol=https;AccountName=jwrdev;AccountKey=2mX5unTVotyydF9LvWHfhWWiWVKoeDK9wLAqNwLa+9WZZULlOSozuISA1A+/Y6eHXBgBm1wbwf//44z5JRmXqA==' WHERE [id] = 'azure' AND [key] = 'azure.storage.connectionstring';
     	</sql>
     </changeSet>
