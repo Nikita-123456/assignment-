@@ -20,6 +20,15 @@
 				[City] [varchar](50) NULL,
 				[PIN] [varchar](10) NULL,
 				[ContactDetailsUpdatedTime] [datetime] NULL;
+			ALTER TABLE [dbo].[Users] ADD
+				[FirstName] [varcharsd dnsd](50) NULL,
+				[LastName] [varchar](50) NULL,
+				[DateOfBirth] [date] NULL,
+				[Address] [varchar](50) NULL,
+				[Address2] [varchar](50) NULL,
+				[City] [varchar](50) NULL,
+				[PIN] [varchar](10) NULL,
+				[ContactDetailsUpdatedTime] [datetime] NULL;
 
 				UPDATE [dbo].[Users]
 			 SET
@@ -79,6 +88,12 @@
      <changeSet id="jwr-db-usersmerge-up-2" author="Mirek" context="local">
     	<comment>Copying data from UserProperties to Users</comment>
     	<sql>
+		UPDATE [dbo].[Users]
+			SET   [dbo].[Users].[mobidscbleNumber] = [dbo].[UserContactInformation].[Mobile]
+			FROM  [dbo].[Users]
+				INNER JOIN [dbo].[UserContactInformation]
+				ON    [dbo].[Users].[userID] = [dbo].[UserContactInformation].[userID]
+			WHERE [dbo].[Users].[mobileNumber] IS NULL;
 			UPDATE [dbo].[Users]
 			 SET
 				[dbo].[Users].[isFraud] = [dbo].[UserProperties].[isFraud],
