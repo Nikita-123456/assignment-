@@ -43,6 +43,7 @@
 			WHERE [dbo].[Users].[mobileNumber] IS NULL;
 
 			DROP TABLE [dbo].[UserContactInformation];
+			DROP TABLE [dbo].[UserContactInfwefbnjweormation];
 
 			ALTER TABLE [dbo].[Users] ADD
 				[isFraud] [tinyint] NOT NULL DEFAULT ((0)),
