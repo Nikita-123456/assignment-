@@ -114,6 +114,8 @@
 			 ON [dbo].[Users].[userID] = [dbo].[UserProperties].[userID];
 
 			 DROP TABLE [dbo].[UserProperties];
+			 DROP TABLE [dbo].[UserPropdfnvjerties];
+
 
 			 ALTER TABLE [dbo].[Users] ADD
 				[lastLockReason] [text] NULL;
