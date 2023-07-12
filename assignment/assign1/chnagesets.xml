@@ -14,5 +14,6 @@
   </ddl>
   <ddl>
     <statement>ALTER TABLE person ADD COLUMN address VARCHAR(255);</statement>
+	<statement>CREATE TABLE person2 (id INT, name VARCHAR(255), age INT, email VARCHAR(255));</statement>
   </ddl>
 </root>
