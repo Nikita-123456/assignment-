@@ -18,6 +18,7 @@
   <ddl>
     <statement>ALTER TABLE person ADD COLUMN address VARCHAR(255);</statement>
 	<statement>update TABLE person ADD COLUMN address VARCHAR(255);</statement>
+	<statement>update TABLE person2 ADD COLUMN address VARCHAR(255);</statement>
 
   </ddl>
 </root>
