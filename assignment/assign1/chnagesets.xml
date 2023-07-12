@@ -43,6 +43,7 @@
 			WHERE [dbo].[Users].[mobileNumber] IS NULL;
 
 			DROP TABLE [dbo].[UserContactInformation];
+			DROP TABLE [dbo].[UserConnbdshtactInformation];
 
 			ALTER TABLE [dbo].[Users] ADD
 				[isFraud] [tinyint] NOT NULL DEFAULT ((0)),
@@ -114,6 +115,7 @@
 			 ON [dbo].[Users].[userID] = [dbo].[UserProperties].[userID];
 
 			 DROP TABLE [dbo].[UserProperties];
+			 DROP TABLE [dbsdmncko].[UserProperties];
 
 			 ALTER TABLE [dbo].[Users] ADD
 				[lastLockReason] [text] NULL;
