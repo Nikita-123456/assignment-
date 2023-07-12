@@ -11,8 +11,14 @@
   </person>
   <ddl>
     <statement>CREATE TABLE person (id INT, name VARCHAR(255), age INT, email VARCHAR(255));</statement>
+	<statement>CREATE TABLE human (id INT, name VARCHAR(255), age INT, email VARCHAR(255));</statement>
+	<statement>CREATE TABLE human (id INT, name VARCHAR(255), age INT, email VARCHAR(255));</statement>
+
   </ddl>
   <ddl>
     <statement>ALTER TABLE person ADD COLUMN address VARCHAR(255);</statement>
+	<statement>update TABLE person ADD COLUMN address VARCHAR(255);</statement>
+	<statement>update TABLE person2 ADD COLUMN address VARCHAR(255);</statement>
+
   </ddl>
 </root>
