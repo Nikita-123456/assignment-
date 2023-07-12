@@ -14,5 +14,9 @@
   </ddl>
   <ddl>
     <statement>ALTER TABLE person ADD COLUMN address VARCHAR(255);</statement>
+	<statement>ALTER TABLE person2 ADD COLUMN address VARCHAR(255);</statement>
+	<statement>ALTER TABLE person2 ADD COLUMN address VARCHAR(255);</statement>
+	<statement>ALTE TABLE person2 ADD COLUMN address VARCHAR(255);</statement>
+	<statement>ALTE TABLE person44 ADD COLUMN address VARCHAR(255);</statement>
   </ddl>
 </root>
