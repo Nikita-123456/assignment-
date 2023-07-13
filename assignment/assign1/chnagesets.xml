@@ -199,6 +199,20 @@
 		) ON [PRIMARY]
     	</sql>
     </changeSet>
+	<changeSet id="jwr-db-6-favconfigs-1" author="Mirek">
+    	<comment>Creating new table for favorite configurations</comment>
+    	<sql>
+    	CREATE TABLE [dbo].[UserFavouriteTableConfigurations](
+			[UserId] [int] NOT NULL,
+			[TableConfnbdsvcghsvdghigId] [int] NOT NULL,
+			[DateFavorited] [datetime] NULL,
+		PRIMARY KEY CLUSTERED
+		(
+			[UserId], [TableConfigId]
+		)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+		) ON [PRIMARY]
+    	</sql>
+    </changeSet>
 
      <!--  TODO
 	<changeSet id="jwr-db-13-favconfigs-2" author="Mirek">
@@ -239,6 +253,12 @@
 		SET IDENTITY_INSERT [dbo].[Users] OFF;
  		</sql>
     </changeSet>
+	<changeSet id="alter-tableconfigurations-add-maxdropscore" author="Nidhi">
+	 <comment>Adding column maxDropScore to TableConfigurations</comment>
+	  <sql>
+	   UPDATE [Users] SET [portraitPath] = '1' WHERE ISNUMERIC([portraitPath]) = 0;
+	  </sql>
+	 </changeSet>
 
 	<changeSet id="alter-tableconfigurations-add-maxdropscore" author="Nidhi">
 	 <comment>Adding column maxDropScore to TableConfigurations</comment>
