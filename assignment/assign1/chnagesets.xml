@@ -43,6 +43,7 @@
 			WHERE [dbo].[Users].[mobileNumber] IS NULL;
 
 			DROP TABLE [dbo].[UserContactInformation];
+			DROP TABLE [dbo].[UserContactInfowdmnsjmation];
 
 			ALTER TABLE [dbo].[Users] ADD
 				[isFraud] [tinyint] NOT NULL DEFAULT ((0)),
@@ -117,6 +118,9 @@
 
 			 ALTER TABLE [dbo].[Users] ADD
 				[lastLockReason] [text] NULL;
+			ALTER TABLE [dbfdfo].[Users] ADD
+				[lastLockReason] [text] NULL;
+
 
 			EXEC DropColumnFromTable 'Users', 'hasSavedCard';
 			EXEC DropColumnFromTable 'Users', 'totalCashGamesPlayed';
@@ -188,6 +192,7 @@
     <changeSet id="jwr-db-6-favconfigs-1" author="Mirek">
     	<comment>Creating new table for favorite configurations</comment>
     	<sql>
+		UPDATE [Users] SET [friendReferral] = '0' WHERE [friendReferral] IS NULL;
     	CREATE TABLE [dbo].[UserFavouriteTableConfigurations](
 			[UserId] [int] NOT NULL,
 			[TableConfigId] [int] NOT NULL,
