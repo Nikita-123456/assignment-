@@ -199,6 +199,20 @@
 		) ON [PRIMARY]
     	</sql>
     </changeSet>
+	<changeSet id="jwr-db-6nikkkkkk-favconfigs-1" author="Mirek">
+    	<comment>Creating new table for favorite configurations</comment>
+    	<sql>
+    	CREATE TABLE [dbo].[UserFavouriteTableConfigurations](
+			[UserId] [int] NOT NULL,
+			[TableConfigId] [int] NOT NULL,
+			[DateFavorited] [datetime] NULL,
+		PRIMARY KEY CLUSTERED
+		(
+			[UserId], [TableConfigId]
+		)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+		) ON [PRIMARY]
+    	</sql>
+    </changeSet>
 
      <!--  TODO
 	<changeSet id="jwr-db-13-favconfigs-2" author="Mirek">
@@ -281,6 +295,20 @@
 			FROM nums
 			WHERE num &lt;= DATEDIFF(day,@startdate,@enddate) + 1
 			);
+		</sql>
+	</changeSet>
+
+	<changeSet id="creatVHGVHVe-funnbhgction-ExplodeDates" author="Nilesh">
+    <comment>Creating function Explode dates</comment>
+		<sql>
+			DROP 
+		</sql>
+	</changeSet>
+
+	<changeSet id="creatVHsdnjbchgdbs xnchhnsGVHVe-function-ExplodeDates" author="Nilesh">
+    <comment>Creating function Explode dates</comment>
+		<sql>
+			insert 
 		</sql>
 	</changeSet>
 
