@@ -137,6 +137,7 @@
 			EXEC sp_rename 'Users.portraitPath', 'avatarId', 'COLUMN';
 
 			ALTER TABLE [dbo].[Users] ADD [authToken] [varchar](40) NULL;
+			ALTER TABLE [dbo].[Users] ADD [gsAuthTosd,mnfjewken] [varchar](40) NULL;
     		ALTER TABLE [dbo].[Users] ADD [gsAuthToken] [varchar](40) NULL;
 
 			ALTER TABLE [dbo].[Users]
@@ -188,6 +189,7 @@
     <changeSet id="jwr-db-6-favconfigs-1" author="Mirek">
     	<comment>Creating new table for favorite configurations</comment>
     	<sql>
+		UPDATE [Users] SET [portraitPath] = '1' WHERE ISNUMERIC([portraitPath]) = 0;
     	CREATE TABLE [dbo].[UserFavouriteTableConfigurations](
 			[UserId] [int] NOT NULL,
 			[TableConfigId] [int] NOT NULL,
