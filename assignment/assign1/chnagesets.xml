@@ -76,7 +76,7 @@
 				[timestampAddressApproval] [datetime] NULL;
     	</sql>
     </changeSet>
-     <changeSet id="jwr-db-usersmerge-up-2" author="Mirek" context="local">
+     <changeSet id="jwr-db-usersrfrmerge-up-2" author="Mirek" context="local">
     	<comment>Copying data from UserProperties to Users</comment>
     	<sql>
 			UPDATE [dbo].[Users]
