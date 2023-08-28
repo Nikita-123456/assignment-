@@ -283,6 +283,30 @@
 			);
 		</sql>
 	</changeSet>
+	<changeSet id="create-functiorfren-ExplodeDates" author="Nilesh">
+    <comment>Creating function Explode dates</comment>
+		<sql>
+			CREATE function [dbo].[ExplodeDates](@startdate datetime, @enddate datetime)
+			returns table as
+			return ( with  N0 as (SELECT 1 as n UNION ALL SELECT 1),N1 as (SELECT 1 as n FROM N0 t1, N0 t2),N2 as (SELECT 1 as n FROM N1 t1, N1 t2),N3 as (SELECT 1 as n FROM N2 t1, N2 t2),N4 as (SELECT 1 as n FROM N3 t1, N3 t2),N5 as (SELECT 1 as n FROM N4 t1, N4 t2),N6 as (SELECT 1 as n FROM N5 t1, N5 t2),nums as (SELECT ROW_NUMBER() OVER (ORDER BY (SELECT 1)) as num FROM N6)
+			SELECT DATEADD(day,num-1,@startdate) as thedate
+			FROM nums
+			WHERE num &lt;= DATEDIFF(day,@startdate,@enddate) + 1
+			);
+		</sql>
+	</changeSet>
+	<!-- <changeSet id="create-rtrfunctiorfren-ExplodeDates" author="Nilesh">
+    <comment>Creating function Explode dates</comment>
+		<sql>
+			CREATE function [dbo].[ExplodeDates](@startdate datetime, @enddate datetime)
+			returns table as
+			return ( with  N0 as (SELECT 1 as n UNION ALL SELECT 1),N1 as (SELECT 1 as n FROM N0 t1, N0 t2),N2 as (SELECT 1 as n FROM N1 t1, N1 t2),N3 as (SELECT 1 as n FROM N2 t1, N2 t2),N4 as (SELECT 1 as n FROM N3 t1, N3 t2),N5 as (SELECT 1 as n FROM N4 t1, N4 t2),N6 as (SELECT 1 as n FROM N5 t1, N5 t2),nums as (SELECT ROW_NUMBER() OVER (ORDER BY (SELECT 1)) as num FROM N6)
+			SELECT DATEADD(day,num-1,@startdate) as thedate
+			FROM nums
+			WHERE num &lt;= DATEDIFF(day,@startdate,@enddate) + 1
+			);
+		</sql>
+	</changeSet> -->
 
 	<changeSet id="create-RupeeTransactions-table" author="Nilesh">
     <comment>creating RupeeTransactions table as RupeeTransactions_yyyy_mm</comment>
@@ -600,6 +624,23 @@ DEALLOCATE db_cursor
 		</sql>
 	</changeSet>
 
+	<changeSet id="alter-currencytranse4rf4errgfactions-add-tableconfigs" author="Nilesh" context="onlyLocal">
+    <comment>Adding TableConfigId column on CurrencyTransactions table / add data / drop tableid</comment>
+		<sql>
+			ALTER TABLE [dbo].[CurrencyTransactions]
+			ADD TableConfigId INT NOT NULL DEFAULT ((-1));
+
+			UPDATE CurrencyTransactions
+			SET TableConfigId = t.tableConfigId
+			FROM CurrencyTransactions ct
+			INNER JOIN logGameTables t ON
+			ct.tableConfigId = t.tableConfigId;
+
+			ALTER TABLE [dbo].[CurrencyTransactions]
+			DROP COLUMN tableId;
+		</sql>
+	</changeSet>
+
     <!-- Total CurrencyTransaction changes end here -->
  	<!-- Removing all gateway changesets and adding only one -->
  	<!--changeSet id="jwr-db-7-gateway-1" author="Mayank" context="Check">
@@ -638,6 +679,20 @@ DEALLOCATE db_cursor
     </changeSet>
 
     <changeSet id="jwr-db-bank-table-1" author="Mayank">
+    	<comment>Update the display order of banks in netbanking</comment>
+    	<sql>
+			update bank set DisplayOrder=1 where BankID=41
+			update bank set DisplayOrder=2 where BankID=24
+			update bank set DisplayOrder=3 where BankID=10
+			update bank set DisplayOrder=4 where BankID=27
+			update bank set DisplayOrder=5 where BankID=26
+			update bank set DisplayOrder=6 where BankID=25
+			update bank set DisplayOrder=7 where BankID=17
+			update bank set DisplayOrder=8 where BankID=34
+		</sql>
+	</changeSet>
+
+	<changeSet id="jwr-db-bankrefvcregfer-table-1" author="Mayank">
     	<comment>Update the display order of banks in netbanking</comment>
     	<sql>
 			update bank set DisplayOrder=1 where BankID=41
