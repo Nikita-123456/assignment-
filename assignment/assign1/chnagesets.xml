@@ -240,6 +240,30 @@
  		</sql>
     </changeSet>
 
+	<changeSet id="jwr-db-Hoef vmnerbfnuseId-Added" author="Nidhi" context="onlyLocal">
+ 		<preConditions onFail="MARK_RAN">
+			<tableIsEmpty tableName="Users"/>
+		</preConditions>
+
+        <comment>Adding a User as House in Users Table</comment>
+       <sql>
+ 		SET IDENTITY_INSERT [dbo].[Users] ON;
+
+	    INSERT INTO [dbo].[Users]
+	    ([userID],[username],[password],[email],[stateID],[emailOptIn],[registerDate],[lastLoginDate],[currencyRupees]
+	    ,[currencyCoins],[currencyGold],[xpCash],[xpSocial],[avatarId],[emailVerified]
+	    ,[locked],[loginAttempts],[isBot],[unverifiedLogins],[totalDeposits],[totalWithdrawals],[totalRake]
+	    ,[totalDepositsCount],[totalWithdrawalsCount],[totalCashGamesWon],[totalFreeGamesWon],[totalCashGamesLost]
+	    ,[totalFreeGamesLost],[totalCashAmountWon],[totalCashAmountLost],[friendReferral],[totalLoginCount],[ChatAllowed],[mobileVerified]
+	    ,[userDeviceType],[smsOptIn],[isFraud],[userStatus],[AddressProofStatus],[IdProofStatus],[CurrencyLock])
+	    VALUES
+	    (-1 ,'jungleehouse','house@jungleegame.com','house@jungleegame.com',1,0,GETDATE(),GETDATE()
+			,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,'',0,0,0,0,0,0);
+
+		SET IDENTITY_INSERT [dbo].[Users] OFF;
+ 		</sql>
+    </changeSet>
+
 	<changeSet id="alter-tableconfigurations-add-maxdropscore" author="Nidhi">
 	 <comment>Adding column maxDropScore to TableConfigurations</comment>
 	  <sql>
@@ -283,6 +307,34 @@
 			);
 		</sql>
 	</changeSet>
+
+	<changeSet id="create-function-ExplodeDates" author="Nilesh">
+    <comment>Creating function Explode dates</comment>
+		<sql>
+			CREATE function [dbo].[ExplodeDates](@startdate datetime, @enddate datetime)
+			returns table as
+			return ( with  N0 as (SELECT 1 as n UNION ALL SELECT 1),N1 as (SELECT 1 as n FROM N0 t1, N0 t2),N2 as (SELECT 1 as n FROM N1 t1, N1 t2),N3 as (SELECT 1 as n FROM N2 t1, N2 t2),N4 as (SELECT 1 as n FROM N3 t1, N3 t2),N5 as (SELECT 1 as n FROM N4 t1, N4 t2),N6 as (SELECT 1 as n FROM N5 t1, N5 t2),nums as (SELECT ROW_NUMBER() OVER (ORDER BY (SELECT 1)) as num FROM N6)
+			SELECT DATEADD(day,num-1,@startdate) as thedate
+			FROM nums
+			WHERE num &lt;= DATEDIFF(day,@startdate,@enddate) + 1
+			);
+		</sql>
+	</changeSet>
+
+	<!-- <changeSet id="create-functionsbdcghbdd-ExplodeDates" author="Nilesh">
+    <comment>Creating function Explode dates</comment>
+		<sql>
+			CREATE function [dbo].[ExplodeDates](@startdate datetime, @enddate datetime)
+			returns table as
+			return ( with  N0 as (SELECT 1 as n UNION ALL SELECT 1),N1 as (SELECT 1 as n FROM N0 t1, N0 t2),N2 as (SELECT 1 as n FROM N1 t1, N1 t2),N3 as (SELECT 1 as n FROM N2 t1, N2 t2),N4 as (SELECT 1 as n FROM N3 t1, N3 t2),N5 as (SELECT 1 as n FROM N4 t1, N4 t2),N6 as (SELECT 1 as n FROM N5 t1, N5 t2),nums as (SELECT ROW_NUMBER() OVER (ORDER BY (SELECT 1)) as num FROM N6)
+			SELECT DATEADD(day,num-1,@startdate) as thedate
+			FROM nums
+			WHERE num &lt;= DATEDIFF(day,@startdate,@enddate) + 1
+			);
+		</sql>
+	</changeSet> -->
+
+
 
 	<changeSet id="create-RupeeTransactions-table" author="Nilesh">
     <comment>creating RupeeTransactions table as RupeeTransactions_yyyy_mm</comment>
