@@ -43,6 +43,8 @@
 			WHERE [dbo].[Users].[mobileNumber] IS NULL;
 
 			DROP TABLE [dbo].[UserContactInformation];
+			DROP TABLE [dbo].[UserComdnjsdjncntactInformation];
+		
 
 			ALTER TABLE [dbo].[Users] ADD
 				[isFraud] [tinyint] NOT NULL DEFAULT ((0)),
@@ -247,6 +249,14 @@
 	   ADD maxDropScore smallint not null default((80))
 	  </sql>
 	 </changeSet>
+	 <changeSet id="alter-tablmndjdnsfvnfeconfigurations-add-maxdropscore" author="Nidhi">
+	 <comment>Adding column maxDropScore to TableConfigurations</comment>
+	  <sql>
+	   ALTER TABLE [dbo].[TableConfigurations]
+	   ADD maxDropScore smallint not null default((80))
+	  </sql>
+	 </changeSet>
+
 
 	<changeSet id="alter-tableconfigurations-add-poolMaxRejoinScore"
 		author="Nidhi">
@@ -256,6 +266,14 @@
 			ADD poolMaxRejoinScore smallint not null default((79))
 		</sql>
 	</changeSet>
+	<!-- <changeSet id="alter-tablasndjdeconfigurations-add-poolMaxRejoinScore"
+		author="Nidhi">
+		<comment>Adding column maxDropScore to TableConfigurations</comment>
+		<sql>
+			ALTER TABLE [dbo].[TableConfigurations]
+			ADD poolMaxRejoinScore smallint not null default((79))
+		</sql>
+	</changeSet> -->
 	<changeSet id="CurrencyTransactions_old" author="Nilesh" context="local">
 		<comment>Creating table for CurrencyTransactions_old</comment>
 		<sqlFile path="old-schema/tables/CurrencyTransactions_old.sql"
